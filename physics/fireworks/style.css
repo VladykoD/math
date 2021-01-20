@@ -1,0 +1,50 @@
+:root {
+  --light-blue: #11698e;
+  --blue: #19456b;
+  --green: #16c79a;
+  --gray: #f8f1f1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: #022534;
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: #022534;
+}
+
+.btn {
+  font-size: 2vw;
+  font-family: sans-serif;
+  border: none;
+  background: var(--gray);
+  color: #022534;
+  border-radius: 30px;
+  padding: 1vw 3vw;
+  margin: 0;
+  z-index: 10;
+  outline: none;
+  transition: opacity .3s ease;
+  cursor: pointer;
+}
+
+.btn:hover {
+  opacity: .8;
+}
+.btn:active {
+  opacity: .4;
+}

@@ -9,17 +9,13 @@ let particle = {
         obj.velocity = vector.create(0,0)
         obj.velocity.setLength(speed)
         obj.velocity.setAngle(direction)
-        obj.color = `hsl(${Math.random() * 220 - 200 | 0}, 80%, 60%)`
+        obj.color = `hsl(${Math.random() * 50 | 0}, 80%, 60%)`
 
         return obj
     },
 
     update: function() {
         this.position.addTo(this.velocity)
-    },
-
-    accelarate: function (accel){
-        this.velocity.addTo(accel)
     }
 
 }
