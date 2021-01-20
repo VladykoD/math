@@ -21,11 +21,11 @@
     });
 
     let particles = [];
-    const numParticles = 100;
+    const numParticles = 300;
 
     function fillObject() {
         for (let i = 0; i < numParticles; i++) {
-            particles.push(particle.create(centerX, centerY, Math.random() * 4 + 1, Math.random() * Math.PI * 2))
+            particles.push(particle.create(centerX, h / 3, Math.random() * 5 + 2, Math.random() * Math.PI * 2, 0.07))
         }
     }
     fillObject();
@@ -47,7 +47,7 @@
             p.update()
 
             context.beginPath()
-            context.arc(p.position.getX(), p.position.getY(), 10, 0, Math.PI * 2, false)
+            context.arc(p.position.getX(), p.position.getY(), 4, 0, Math.PI * 2, false)
             context.fillStyle = p.color;
             context.fill();
         }
