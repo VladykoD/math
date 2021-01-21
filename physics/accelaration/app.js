@@ -25,7 +25,7 @@
     function update() {
         context.clearRect(0,0,w,h)
 
-        p.accelarate(accel);
+        p.accelerate(accel);
 
         p.update()
 

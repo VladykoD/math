@@ -74,7 +74,7 @@
             thrust.setLength(0)
         }
 
-        ship.accelarate(thrust)
+        ship.accelerate(thrust)
         ship.update()
 
         context.save()

@@ -20,7 +20,7 @@ let particle = {
         this.position.addTo(this.velocity)
     },
 
-    accelarate: function (accel) {
+    accelerate: function (accel) {
         this.velocity.addTo(accel)
     }
 

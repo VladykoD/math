@@ -15,4 +15,12 @@
 
     window.addEventListener(`resize`, init);
 
+
+
+    function update() {
+        context.clearRect(0,0,w,h)
+
+        requestAnimationFrame(update)
+    }
+    update()
 })();
