@@ -20,7 +20,9 @@
         angle = 0,
         turningLeft = false,
         turningRight = false,
-        thrusting = false
+        thrusting = false;
+
+    ship.friction = 0.99;
 
 
     document.body.addEventListener('keydown', function (e) {
