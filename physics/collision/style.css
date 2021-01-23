@@ -1,0 +1,27 @@
+:root {
+  --light-blue: #11698e;
+  --blue: #19456b;
+  --green: #16c79a;
+  --gray: #f8f1f1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background: var(--gray);
+}
+
+canvas {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
