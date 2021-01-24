@@ -8,7 +8,7 @@
 
 
     function update() {
-        context.clearRect(0,0,w,h)
+        context.clearRect(0,0,width,height)
 
         requestAnimationFrame(update)
     }
