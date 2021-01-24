@@ -1,19 +1,4 @@
 (() => {
-
-    /*
-        закон гука
-        деформация, возникающая в упругом теле
-        (пружине, стержне, консоли, балке и т. д.),
-        пропорциональна приложенной к этому телу силе
-
-        f = k * x
-        f = force
-        k = stiffness (жесткость пружины)
-        x = distance
-
-    */
-
-
     const canvas = document.querySelector(`canvas`);
     const context = canvas.getContext(`2d`);
 
@@ -21,11 +6,13 @@
         height = canvas.height = window.innerHeight,
         springPoint = vector.create(width / 2, height / 2),
         weight = particle.create(Math.random() * width,
-            Math.random() * height, 50, Math.random() * Math.PI * 2),
-        k = 0.01 + Math.random() * .5;
+            Math.random() * height, 50, Math.random() * Math.PI * 2, 0.5),
+        k = 0.1,
+        springLength = 100;
 
     weight.radius = 20
-    weight.friction = 0.5 + Math.random() * .5
+    weight.friction = 0.9
+
 
     document.body.addEventListener('mousemove', function (e) {
         springPoint.setX(e.clientX)
@@ -35,8 +22,9 @@
     function update() {
         context.clearRect(0,0,width,height)
 
-        let distance = springPoint.subtract(weight.position),
-            springForce = distance.multiply(k)
+        let distance = springPoint.subtract(weight.position);
+        distance.setLength(distance.getLength() - springLength)
+        let springForce = distance.multiply(k)
 
         weight.velocity.addTo(springForce)
         weight.update()
