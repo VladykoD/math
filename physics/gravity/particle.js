@@ -1,49 +1,58 @@
 let particle = {
-    position: null,
-    velocity: null,
+    x: 0,
+    y: 0,
+    vx: 0,
+    vy: 0,
     mass: 1,
+    radius: 0,
+    bounce: -1,
+    friction: 1,
+    gravity: 0,
 
-
-    create: function (x, y, speed, direction) {
-        var obj = Object.create(this);
-
-        obj.position = vector.create(x, y)
-        obj.velocity = vector.create(0,0)
-        obj.velocity.setLength(speed)
-        obj.velocity.setAngle(direction)
-
-        return obj
+    create: function(x, y, speed, direction, grav) {
+        let obj = Object.create(this);
+        obj.x = x;
+        obj.y = y;
+        obj.vx = Math.cos(direction) * speed;
+        obj.vy = Math.sin(direction) * speed;
+        obj.gravity = grav || 0;
+        return obj;
     },
 
-    accelerate: function (accel) {
-        this.velocity.addTo(accel)
+    accelerate: function(ax, ay) {
+        this.vx += ax;
+        this.vy += ay;
     },
 
     update: function() {
-        this.position.addTo(this.velocity)
+        this.vx *= this.friction;
+        this.vy *= this.friction;
+        this.vy += this.gravity;
+        this.x += this.vx;
+        this.y += this.vy;
     },
 
     angleTo: function(p2) {
-        return Math.atan2(
-            p2.position.getY() - this.position.getY(),
-            p2.position.getX() - this.position.getX())
+        return Math.atan2(p2.y - this.y, p2.x - this.x);
     },
 
     distanceTo: function(p2) {
-        let dx = p2.position.getX() - this.position.getX();
-        let dy = p2.position.getY() - this.position.getY();
+        let dx = p2.x - this.x,
+            dy = p2.y - this.y;
 
-        return Math.sqrt(dx * dx + dy * dy)
+        return Math.sqrt(dx * dx + dy * dy);
     },
 
-    gravitateTo: function (p2) {
-        let grav = vector.create(0,0),
-            dist = this.distanceTo(p2);
+    gravitateTo: function(p2) {
+        let dx = p2.x - this.x,
+            dy = p2.y - this.y,
+            distSQ = dx * dx + dy * dy,
+            dist = Math.sqrt(distSQ),
+            force = p2.mass / distSQ,
+            ax = dx / dist * force,
+            ay = dy / dist * force;
 
-        grav.setLength(p2.mass / (dist * dist));
-        grav.setAngle(this.angleTo(p2));
-
-        this.velocity.addTo(grav);
+        this.vx += ax;
+        this.vy += ay;
     }
-
-}
+};

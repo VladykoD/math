@@ -4,7 +4,10 @@
 
     let width = canvas.width = window.innerWidth,
         height = canvas.height = window.innerHeight,
-        springPoint = vector.create(width / 2, height / 2),
+        springPoint = {
+            x: width / 2,
+            y: height / 2
+        },
         weight = particle.create(Math.random() * width,
             Math.random() * height, 50, Math.random() * Math.PI * 2, 0.5),
         k = 0.1,
@@ -15,33 +18,38 @@
 
 
     document.body.addEventListener('mousemove', function (e) {
-        springPoint.setX(e.clientX)
-        springPoint.setY(e.clientY)
+        springPoint.x = e.clientX
+        springPoint.y = e.clientY
     })
 
     function update() {
         context.clearRect(0,0,width,height)
 
-        let distance = springPoint.subtract(weight.position);
-        distance.setLength(distance.getLength() - springLength)
-        let springForce = distance.multiply(k)
+        let dx = springPoint.x - weight.x;
+        let dy = springPoint.y - weight.y;
+        let distance = Math.sqrt(dx*dx + dy*dy),
+            springForce = (distance - springLength) * k,
+            ax = dx / distance * springForce,
+            ay = dy / distance * springForce;
 
-        weight.velocity.addTo(springForce)
+        weight.vx += ax;
+        weight.vy += ay;
+
         weight.update()
 
         context.beginPath()
-        context.arc(weight.position.getX(), weight.position.getY(),
+        context.arc(weight.x, weight.y,
             weight.radius, 0, Math.PI * 2, false)
         context.fill();
 
         context.beginPath()
-        context.arc(springPoint.getX(), springPoint.getY(),
+        context.arc(springPoint.x, springPoint.y,
             4, 0, Math.PI * 2, false)
         context.fill();
 
         context.beginPath();
-        context.moveTo(weight.position.getX(), weight.position.getY())
-        context.lineTo(springPoint.getX(), springPoint.getY())
+        context.moveTo(weight.x, weight.y)
+        context.lineTo(springPoint.x, springPoint.y)
         context.stroke()
 
         requestAnimationFrame(update)
